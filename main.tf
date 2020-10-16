@@ -19,6 +19,9 @@ resource "aws_vpc" "aiexperts" {
     Name = "AIExperts"
   }
 }
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.aiexperts.id
+}
 //# Creating a Security Group
 resource "aws_security_group" "default" {
   name        = "allow_https"
