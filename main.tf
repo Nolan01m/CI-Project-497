@@ -48,10 +48,15 @@ resource "aws_subnet" "subnet" {
 resource "aws_network_interface" "Int" {
   subnet_id   = aws_subnet.subnet.id
   private_ips = ["10.0.100.0"]
+  security_groups = [aws_security_group.default.id]
 
   tags = {
     Name = "primary_network_interface"
   }
+}
+resource "aws_eip" "lb" {
+  instance = aws_instance.website.id
+  vpc      = true
 }
 //# Create an EC2 instance
 resource "aws_instance" "website" {
@@ -62,6 +67,7 @@ resource "aws_instance" "website" {
   network_interface {
     network_interface_id = aws_network_interface.Int.id
     device_index         = 0
+    
   }
 
   tags = {
