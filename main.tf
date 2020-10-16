@@ -22,6 +22,10 @@ resource "aws_vpc" "aiexperts" {
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.aiexperts.id
 }
+route {
+  cidr_block = "0.0.0.0/24"
+  gateway_id = aws_internet_gateway.gw.id
+}
 //# Creating a Security Group
 resource "aws_security_group" "default" {
   name        = "allow_https"
@@ -30,18 +34,18 @@ resource "aws_security_group" "default" {
 
   ingress {
     protocol  = "tcp"
-    from_port = 443
-    to_port   = 443
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port = [80, 443]
+    to_port   = [80, 443]
+    cidr_blocks = ["0.0.0.0/0", "::/0"]
   }
   egress {
-    from_port   = 0
-    to_port     = 0
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = [80, 443]
+    to_port     = [80, 443]
+    cidr_blocks = ["0.0.0.0/0", "::/0"] 
   }
   tags = {
-    Name = "allow_https"
+    Name = "allow_http(s)"
   }
 }
 resource "aws_subnet" "subnet" {
