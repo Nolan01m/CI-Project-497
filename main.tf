@@ -35,6 +35,12 @@ resource "aws_security_group" "default" {
     to_port   = 443
     cidr_blocks = [aws_vpc.aiexperts.cidr_block]
   }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   tags = {
     Name = "allow_https"
   }
