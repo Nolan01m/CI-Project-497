@@ -29,7 +29,7 @@ resource "aws_security_group" "default" {
   vpc_id = aws_vpc.aiexperts.id
 
   ingress {
-    protocol  = "tcp"
+    protocol  = -1
     self      = true
     from_port = 443
     to_port   = 443
