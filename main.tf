@@ -19,14 +19,17 @@ resource "aws_vpc" "aiexperts" {
     Name = "AIExperts"
   }
 }
-resource "aws_internet_gateway" "gw" {
+resource "aws_internet_gateway" "Gateway" {
   vpc_id = aws_vpc.aiexperts.id
 }
-resource "aws_route_table" "r" {
+resource "aws_route_table" "Routing" {
   vpc_id = aws_vpc.aiexperts.id
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gw.id
+    gateway_id = aws_internet_gateway.Gateway.id
+  tags = {
+    Name = "main"
+    }
   }
 }
 //# Creating a Security Group
@@ -73,7 +76,7 @@ resource "aws_eip" "External_IP" {
   instance = aws_instance.website.id
   vpc      = true
   associate_with_private_ip = "10.0.100.0"
-  depends_on                = [aws_internet_gateway.gw]
+  depends_on                = [aws_internet_gateway.Gateway]
 }
 
 //##Instances##\\
