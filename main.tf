@@ -29,8 +29,7 @@ resource "aws_security_group" "default" {
   vpc_id = aws_vpc.aiexperts.id
 
   ingress {
-    protocol  = -1
-    self      = true
+    protocol  = "tcp"
     from_port = 443
     to_port   = 443
     cidr_blocks = ["0.0.0.0/0"]
@@ -38,7 +37,7 @@ resource "aws_security_group" "default" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = -1
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
