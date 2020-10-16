@@ -57,9 +57,11 @@ resource "aws_network_interface" "Int" {
     Name = "primary_network_interface"
   }
 }
-resource "aws_eip" "lb" {
+resource "aws_eip" "External_IP" {
   instance = aws_instance.website.id
   vpc      = true
+  associate_with_private_ip = "10.0.100.0"
+  depends_on                = [aws_internet_gateway.gw]
 }
 //# Create an EC2 instance
 resource "aws_instance" "website" {
