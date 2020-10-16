@@ -27,9 +27,6 @@ resource "aws_route_table" "Routing" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.Gateway.id
-  tags = {
-    Name = "main"
-    }
   }
 }
 //# Creating a Security Group
