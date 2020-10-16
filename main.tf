@@ -36,15 +36,15 @@ resource "aws_security_group" "default" {
   vpc_id = aws_vpc.aiexperts.id
 
   ingress {
-    protocol  = "tcp"
-    from_port = 80
-    to_port   = 80
+    protocol  = -1
+    from_port = 0
+    to_port   = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
-    protocol    = "tcp"
-    from_port   = 80
-    to_port     = 80
+    protocol    = -1
+    from_port   = 0
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"] 
   }
   tags = {
@@ -75,6 +75,8 @@ resource "aws_eip" "External_IP" {
   associate_with_private_ip = "10.0.100.0"
   depends_on                = [aws_internet_gateway.gw]
 }
+
+//##Instances##\\
 //# Create an EC2 instance
 resource "aws_instance" "website" {
 
