@@ -39,13 +39,13 @@ resource "aws_security_group" "default" {
     protocol  = "tcp"
     from_port = 80
     to_port   = 80
-    cidr_blocks = ["0.0.0.0/0", "::/0"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     protocol    = "tcp"
     from_port   = 80
     to_port     = 80
-    cidr_blocks = ["0.0.0.0/0", "::/0"] 
+    cidr_blocks = ["0.0.0.0/0"] 
   }
   tags = {
     Name = "allow_http(s)"
