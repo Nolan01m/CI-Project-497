@@ -20,14 +20,20 @@ resource "aws_vpc" "aiexperts" {
   }
 }
 //# Creating a Security Group
-resource "aws_default_security_group" "default" {
+resource "aws_security_group" "default" {
+  name        = "allow_https"
+  description = "Allow https inbound traffic"
   vpc_id = aws_vpc.aiexperts.id
 
   ingress {
-    protocol  = tcp
+    protocol  = "tcp"
     self      = true
     from_port = 443
     to_port   = 443
+    cidr_blocks = [aws_vpc.aiexperts.cidr_block]
+  }
+  tags = {
+    Name = "allow_https"
   }
 }
 resource "aws_subnet" "subnet" {
