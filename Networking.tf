@@ -28,11 +28,6 @@ resource "aws_network_interface" "Int" {
   subnet_id   = aws_subnet.subnet.id
   private_ips = ["10.0.0.50"]
   security_groups = [aws_security_group.default.id]
-
-  attachment {
-    instance     = aws_instance.Website.id
-    device_index = 1
-             }
 }
 #added Website
 resource "aws_eip" "External_IP" {

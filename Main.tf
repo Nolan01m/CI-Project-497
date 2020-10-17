@@ -33,10 +33,7 @@ resource "aws_instance" "Website" {
 
   tags = {
     Name = "Website"
-  }
-  triggers = {
-    Int = aws_network_interface.Int.id
-  }
+}
 }
 
 //# Integrate lex 
