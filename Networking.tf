@@ -15,6 +15,30 @@ resource "aws_route_table" "Routing" {
     egress_only_gateway_id = aws_egress_only_internet_gateway.Egress.id
         }
 }
+resource "aws_subnet" "subnet" {
+  vpc_id            = aws_vpc.aiexperts.id
+  cidr_block        = "10.0.0.0/16"
+  availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "aiexperts_subnet"
+         }
+}
+resource "aws_network_interface" "Int" {
+  subnet_id   = aws_subnet.subnet.id
+  private_ips = ["10.0.0.2"]
+  security_groups = [aws_security_group.default.id]
+
+  tags = {
+    Name = "primary_network_interface"
+         }
+}
+resource "aws_eip" "External_IP" {
+  instance = aws_instance.website.id
+  vpc      = true
+  associate_with_private_ip = "10.0.0.2"
+  depends_on                = [aws_internet_gateway.Gateway]
+}
 //# Creating a Security Group
 resource "aws_security_group" "default" {
   name        = "allow_http(s)"
@@ -38,28 +62,4 @@ resource "aws_security_group" "default" {
   tags = {
     Name = "allow_http(s)"
   }
-}
-resource "aws_subnet" "subnet" {
-  vpc_id            = aws_vpc.aiexperts.id
-  cidr_block        = "10.0.0.0/16"
-  availability_zone = "us-east-1a"
-
-  tags = {
-    Name = "aiexperts_subnet"
-  }
-}
-resource "aws_network_interface" "Int" {
-  subnet_id   = aws_subnet.subnet.id
-  private_ips = ["10.0.100.0"]
-  security_groups = [aws_security_group.default.id]
-
-  tags = {
-    Name = "primary_network_interface"
-  }
-}
-resource "aws_eip" "External_IP" {
-  instance = aws_instance.website.id
-  vpc      = true
-  associate_with_private_ip = "10.0.100.0"
-  depends_on                = [aws_internet_gateway.Gateway]
 }
