@@ -2,7 +2,7 @@ resource "aws_internet_gateway" "Gateway" {
   vpc_id = aws_vpc.aiexperts.id
 }
 resource "aws_egress_only_internet_gateway" "Egress" {
-  vpc_id = aws_vpc.example.id
+  vpc_id = aws_vpc.aiexperts.id
 }
 resource "aws_route_table" "Routing" {
   vpc_id = aws_vpc.aiexperts.id
