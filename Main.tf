@@ -20,7 +20,7 @@ resource "aws_vpc" "aiexperts" {
 }
 //##Instances##\\
 //# Create an EC2 instance
-resource "aws_instance" "website" {
+resource "aws_instance" "Website" {
 
   ami           = "ami-0a5ce0c6788a56cf4"
   instance_type = "t2.micro"
@@ -33,6 +33,9 @@ resource "aws_instance" "website" {
 
   tags = {
     Name = "Website"
+  }
+  triggers = {
+    Int = aws_network_interface.Int.id
   }
 }
 
