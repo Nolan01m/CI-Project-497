@@ -26,12 +26,13 @@ resource "aws_subnet" "subnet" {
 }
 resource "aws_network_interface" "Int" {
   subnet_id   = aws_subnet.subnet.id
-  private_ips = ["10.0.0.2"]
+  private_ips = ["10.0.0.50"]
   security_groups = [aws_security_group.default.id]
 
-  tags = {
-    Name = "primary_network_interface"
-         }
+  attachment {
+    instance     = aws_instance.test.id
+    device_index = 1
+             }
 }
 resource "aws_eip" "External_IP" {
   instance = aws_instance.website.id
