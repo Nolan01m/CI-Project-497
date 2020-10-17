@@ -34,6 +34,7 @@ resource "aws_network_interface" "Int" {
     device_index = 1
              }
 }
+#added website
 resource "aws_eip" "External_IP" {
   instance = aws_instance.website.id
   vpc      = true
