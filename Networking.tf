@@ -36,7 +36,7 @@ resource "aws_network_interface" "Int" {
 }
 #added website
 resource "aws_eip" "External_IP" {
-  instance = aws_instance.website.id
+  instance = aws_instance.Website.id
   vpc      = true
   associate_with_private_ip = "10.0.0.2"
   depends_on                = [aws_internet_gateway.Gateway]
