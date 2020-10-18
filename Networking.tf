@@ -30,7 +30,7 @@ resource "aws_network_interface" "Int" {
   security_groups = [aws_security_group.default.id]
 
   attachment {
-    instance     = aws_instance.test.id
+    instance     = aws_instance.Website.id
     device_index = 1
              }
 }
