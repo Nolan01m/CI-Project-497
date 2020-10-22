@@ -33,7 +33,7 @@ resource "aws_instance" "Website" {
 
   tags = {
     Name = "Website"
-}
+         }
 }
 
 //# Integrate lex 
