@@ -22,7 +22,7 @@ resource "aws_vpc" "aiexperts" {
 //# Create an EC2 instance
 resource "aws_instance" "Website" {
 
-  ami           = "ami-0a5ce0c6788a56cf4"
+  ami           = "ami-0cb8959979c4b301c"
   instance_type = "t2.micro"
 
   network_interface {
