@@ -1,9 +1,9 @@
 //# Hostname = aiexperts.com
 terraform {
-backend "remote" {}
-    //# allow emote execute tf code from local cli
+  backend "remote" {}
+  //# allow emote execute tf code from local cli
 
-//# Specifying Cloud Provider
+  //# Specifying Cloud Provider
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -13,7 +13,7 @@ backend "remote" {}
 }
 //# Create a VPC
 resource "aws_vpc" "aiexperts" {
-  cidr_block = "10.0.0.0/16"  
+  cidr_block = "10.0.0.0/16"
   tags = {
     Name = "AIExperts"
   }
@@ -22,18 +22,18 @@ resource "aws_vpc" "aiexperts" {
 //# Create an EC2 instance
 resource "aws_instance" "Website" {
 
-  ami           = "ami-09d92bb6c9602d3f1"
+  ami           = "ami-07e585a06c5a0ff81"
   instance_type = "t2.micro"
 
   network_interface {
     network_interface_id = aws_network_interface.Int.id
     device_index         = 0
-    
+
   }
 
   tags = {
     Name = "Website"
-         }
+  }
 }
 
 //# Integrate lex 

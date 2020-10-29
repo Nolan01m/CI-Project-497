@@ -9,7 +9,7 @@ resource "aws_route_table" "Routing" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.Gateway.id
-        }
+  }
 }
 resource "aws_route_table_association" "Routing" {
   subnet_id      = aws_subnet.subnet.id
@@ -22,39 +22,39 @@ resource "aws_subnet" "subnet" {
 
   tags = {
     Name = "aiexperts_subnet"
-         }
+  }
 }
 resource "aws_network_interface" "Int" {
-  subnet_id   = aws_subnet.subnet.id
-  private_ips = ["10.0.0.50"]
+  subnet_id       = aws_subnet.subnet.id
+  private_ips     = ["10.0.0.51"]
   security_groups = [aws_security_group.default.id]
 }
 #added Website
 resource "aws_eip" "External_IP" {
-  instance = aws_instance.Website.id
-  vpc      = true
-  associate_with_private_ip = "10.0.0.50"
+  instance                  = aws_instance.Website.id
+  vpc                       = true
+  associate_with_private_ip = "10.0.0.51"
   depends_on                = [aws_internet_gateway.Gateway]
 }
 //# Creating a Security Group
 resource "aws_security_group" "default" {
   name        = "allow_http(s)"
   description = "Allow http(s) inbound traffic"
-  vpc_id = aws_vpc.aiexperts.id
+  vpc_id      = aws_vpc.aiexperts.id
 
   ingress {
-    protocol  = -1
-    from_port = 0
-    to_port   = 0
+    protocol    = -1
+    from_port   = 0
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
-    self = true
+    self        = true
   }
   egress {
     protocol    = -1
     from_port   = 0
     to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"] 
-    self = true
+    cidr_blocks = ["0.0.0.0/0"]
+    self        = true
   }
   tags = {
     Name = "allow_http(s)"
