@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "aiexparts" {
-  name = "aiexparts"
+  name = "aiexparts.com"
 }
 
 resource "aws_route53_record" "Record1" {
