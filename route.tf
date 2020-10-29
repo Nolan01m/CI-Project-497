@@ -9,7 +9,7 @@ resource "aws_route53_record" "Record1" {
   type            = "A"
   zone_id         = aws_route53_zone.aiexparts.zone_id
 
-  records = ["54.83.73.188"]
+  records = aws_eip.External_IP.id
 }
 
 resource "aws_route53_record" "Record2" {
