@@ -26,14 +26,14 @@ resource "aws_subnet" "subnet" {
 }
 resource "aws_network_interface" "Int" {
   subnet_id       = aws_subnet.subnet.id
-  private_ips     = ["10.0.0.51"]
+  private_ips     = ["10.0.0.50"]
   security_groups = [aws_security_group.default.id]
 }
 #added Website
 resource "aws_eip" "External_IP" {
   instance                  = aws_instance.Website.id
   vpc                       = true
-  associate_with_private_ip = "10.0.0.51"
+  associate_with_private_ip = "10.0.0.50"
   depends_on                = [aws_internet_gateway.Gateway]
 }
 //# Creating a Security Group
