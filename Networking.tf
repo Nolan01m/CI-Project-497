@@ -35,7 +35,7 @@ resource "aws_eip" "External_IP" {
   vpc                       = true
   associate_with_private_ip = "10.0.0.50"
   depends_on                = [aws_internet_gateway.Gateway]
-}
+} 
 //# Creating a Security Group
 resource "aws_security_group" "default" {
   name        = "allow_http(s)"
